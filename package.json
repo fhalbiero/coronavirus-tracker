@@ -1,5 +1,6 @@
 {
   "name": "coronavirus-tracker",
+  "home": "https://fhalbiero.github.io/coronavirus-tracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
