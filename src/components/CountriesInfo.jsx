@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { TiArrowUnsorted } from 'react-icons/ti';
 
 import Country from './Country';
 import {sortRowsPerName} from '../utils/utils';
-// import { Container } from './styles';
+
 
 export default function CountriesInfo() {
   
@@ -48,12 +49,30 @@ export default function CountriesInfo() {
         <div className="div-countries">
            <table>
             <tr>
-                <th id="title" onClick={handleClick}>Country</th>
-                <th id="total_cases" onClick={handleClick}>Cases</th>
-                <th id="total_recovered" onClick={handleClick}>Recovered</th>
-                <th id="percent_recovered" onClick={handleClick}>%</th>
-                <th id="total_deaths" onClick={handleClick}>Deaths</th>
-                <th id="percent_deaths" onClick={handleClick}>%</th>
+                <th id="title" onClick={handleClick}>
+                     <TiArrowUnsorted className="icon"/>
+                     Country     
+                </th>
+                <th id="total_cases" onClick={handleClick}>
+                    <TiArrowUnsorted className="icon"/>
+                    Cases
+                </th>
+                <th id="total_recovered" onClick={handleClick}>
+                    <TiArrowUnsorted className="icon"/>
+                    Recovered
+                </th>
+                <th id="percent_recovered" onClick={handleClick}>
+                    <TiArrowUnsorted className="icon"/>
+                    %
+                </th>
+                <th id="total_deaths" onClick={handleClick}>
+                    <TiArrowUnsorted className="icon"/>
+                    Deaths
+                </th>
+                <th id="percent_deaths" onClick={handleClick}>
+                    <TiArrowUnsorted className="icon"/>
+                    %
+                </th>
             </tr>
             <tbody>
                 {

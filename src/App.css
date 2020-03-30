@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: #333;
+  background-color: #262626;
   margin: 0;
   padding: 0;
   display: block;
@@ -29,8 +29,9 @@ h1 {
   margin: 50px 30px;
 }
 
-.svg-map:hover {
-  background-color: #333;
+
+path:hover {
+  fill: rgb(6, 238, 255);
 }
 
 .div-globalinfo-box {
@@ -42,7 +43,7 @@ h1 {
 }
 
 .div-globalinfo-box-item {
-  background-color: #444;
+  background-color: #333;
   width: 140px;
   display: flex;
   flex-direction: column;
@@ -51,6 +52,12 @@ h1 {
   margin-bottom: 20px;
   border-radius: 5px;
   font-weight: 100;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.div-globalinfo-box-item:hover {
+  transform: scale(1.2);
 }
 
 .global-info-value {
@@ -80,6 +87,38 @@ h1 {
   align-self: center;
 }
 
+
+.icon {
+  margin-right: 10px;
+}
+
+
+.footer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  background-color: #010101;
+  padding: 40px 20px;
+  justify-content: center;
+  color: #9f9f9f;
+}
+
+.footer h4 {
+  font-size: 1.2rem;
+  font-weight: 100;
+  color: rgb(6, 238, 255);
+}
+
+.footer p {
+  font-size: 0.8rem;
+}
+
+.footer a {
+  text-decoration: none;
+  color: rgb(6, 238, 255);
+}
+
+
 table {
   width: 100%;
   border: none;
@@ -93,18 +132,28 @@ tr {
 
 th {
   padding: 10px;
-  background-color: #6e6e6e;
+  background-color: #121212;
   font-weight: 100;
   cursor: pointer;
 }
 
 td {
   padding: 10px;
-  background-color: #eee;
+  background-color: #fefefe;
   border-left: 1px solid #cecece;
   border-bottom: 1px solid #cecece;
   font-size: 0.85rem;
   color: #333;
+}
+
+.td_death {
+  background-color: #e72828;
+  color: #efefef;
+}
+
+.td_recovered {
+  background-color: #1e9654;
+  color: #efefef;
 }
 
 @media only screen and (max-width: 400px) {

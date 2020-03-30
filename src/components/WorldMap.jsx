@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { SvgLoader, SvgProxy } from 'react-svgmt';
 
-const svgUrl = "https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg";
-
+//const svgUrl = "https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg";
+const svgFile = "/globalMap.svg";
 
 export default function WorldMap() {
 
     const [countries, setCountries] = useState([]);
-    const [max, setMax] = useState(0);
+    const [maxCountryCases, setMaxCountryCases] = useState(0);
 
     useEffect(() => {
 
         axios.get('https://thevirustracker.com/free-api?countryTotals=ALL')
             .then(res => {
-
-                let _max = 0;
+                let _maxCountryCases = 0;
 
                 const tempCountries = Object.values({...res.data.countryitems[0]}).map(country => {
                     
-                    if (_max < country.total_cases) {
-                        _max = country.total_cases;
+                    if (_maxCountryCases < country.total_cases) {
+                        _maxCountryCases = country.total_cases;
                     }
                     
                     return {
@@ -29,67 +29,63 @@ export default function WorldMap() {
                  });
 
                 setCountries(tempCountries);
-                setMax(_max);
+                setMaxCountryCases(_maxCountryCases);
             })
             .catch(err => console.log(err));
 
     }, []);
 
-    const handleClick = ({title, total_cases}) => {
-        alert( title + '   ' + total_cases);
+
+    const handleClick = (country) => {
+
+        return <Link to="/country" />
+    }
+
+
+    const calcRGBColor = (total_cases) => {
+
+        if (total_cases < 100) {
+            return "rgb( 180, 180, 180)";
+        }
+
+        const redDif = 255 - Math.trunc(maxCountryCases / 1000);
+        const totalCases = total_cases / 1000;
+
+        let aux = 0;
+
+        aux = totalCases + redDif; 
+        const addVl = (((255 - totalCases)*(totalCases*3))/100); 
+
+        //redux the color diference between country
+        aux = aux + addVl;
+
+        aux = Math.trunc(aux);
+
+        if (aux > 255) {
+            aux = 255;
+        }
+
+        return `rgb( 138, ${195 - aux}, ${180 - aux})`;
     }
 
 
   return (
       <div className="map-box">
-        <SvgLoader path={svgUrl} >
-            <SvgProxy 
-                selector="path" 
-            />
-
+        <SvgLoader path={svgFile} >
+            <SvgProxy selector="path" fill="#6f6f6f"/>
             {
                 Object.values(countries).map(country => {
 
-                    if (!country.ourid) {
-                        return;
-                    }
+                    if (!country.ourid) return;
+          
+                    const rgbColor = calcRGBColor(country.total_cases);
 
-                    const redDif = 255 - Math.trunc(max / 1000);
-                    const vlAux = Math.trunc(country.total_cases / 1000);
-
-               
-                    let vl = vlAux + redDif;
-
-                    vl = vl + ((255 - vl)/100);
-
-                    if (vl < 10) {
-                        vl = vl + 20;
-                    } else if (vl < 100) {
-                        vl = vl + 80;
-                    } else if (vl < 150) {
-                        vl = vl + 80;
-                    }
-
-                    if (vl > 255) {
-                        vl = 255;
-                    } 
-
-                   
-
-
-                    const r = vl;
-                    const g = 255 - vl;
-                    const b = 155 - vl;
-
-                    console.log(country.code, country.total_cases, r, g, b)
-
-                    const color = `rgb(${r}, ${g}, ${b})`;
-
-                    return (<SvgProxy 
+                    return (<SvgProxy
+                                key={country.ourid}
                                 className="svg-map"
                                 id={country.code}
-                                selector={`#${country.code.toLowerCase()}`} 
-                                fill={color}
+                                selector={`#${country.code}`} 
+                                fill={rgbColor}
                                 onClick={() => handleClick(country)}
                             />)
                 })
