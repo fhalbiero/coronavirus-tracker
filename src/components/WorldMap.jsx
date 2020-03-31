@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { SvgLoader, SvgProxy } from 'react-svgmt';
 
-//const svgUrl = "https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg";
+import CountryInfo from './CountryInfo';
+
+const svgUrl = "https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg";
 const svgFile = "/globalMap.svg";
 
 export default function WorldMap() {
 
     const [countries, setCountries] = useState([]);
     const [maxCountryCases, setMaxCountryCases] = useState(0);
+    const [showCountryInfo, setShowCountryInfo] = useState(false);
+    const [activeCountry, setActiveCountry] = useState("");
 
     useEffect(() => {
 
@@ -37,8 +40,8 @@ export default function WorldMap() {
 
 
     const handleClick = (country) => {
-
-        return <Link to="/country" />
+        setActiveCountry(country);
+        setShowCountryInfo(true);
     }
 
 
@@ -69,30 +72,33 @@ export default function WorldMap() {
     }
 
 
+  if (showCountryInfo) {
+      return  <CountryInfo {...activeCountry}/>
+  } 
+
   return (
-      <div className="map-box">
-        <SvgLoader path={svgFile} >
-            <SvgProxy selector="path" fill="#6f6f6f"/>
-            {
-                Object.values(countries).map(country => {
+        <div className="map-box">
+            <SvgLoader path={svgUrl} >
+                <SvgProxy selector="path"/>
+                {
+                    Object.values(countries).map(country => {
 
-                    if (!country.ourid) return;
-          
-                    const rgbColor = calcRGBColor(country.total_cases);
-
-                    return (<SvgProxy
-                                key={country.ourid}
-                                className="svg-map"
-                                id={country.code}
-                                selector={`#${country.code}`} 
-                                fill={rgbColor}
-                                onClick={() => handleClick(country)}
-                            />)
-                })
-            }
+                        if (!country.ourid) return;
             
-        </SvgLoader> 
-      </div>
-   
+                        const rgbColor = calcRGBColor(country.total_cases);
+
+                        return (<SvgProxy
+                                    key={country.ourid}
+                                    className="svg-map"
+                                    id={country.code}
+                                    selector={`#${country.code.toLowerCase()}`} 
+                                    fill={rgbColor}
+                                    onClick={() => handleClick(country)} 
+                                />)
+                    })
+                }
+                
+            </SvgLoader> 
+        </div>   
   );
 }

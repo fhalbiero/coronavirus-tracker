@@ -56,6 +56,63 @@ path:hover {
   transition: all .3s;
 }
 
+.country-info-box {
+  background-color: #333;
+  width: 80%;
+  display: flex;
+  padding-bottom: 30px;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.country-info-box h2 {
+  font-size: 2rem;
+  font-weight: 100;
+  color: #efefef;
+}
+
+.close-btn {
+  position: absolute;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 5px;
+  right: 60px;
+}
+
+.country-info-div h3 {
+  font-size: 1.5rem;
+  font-weight: 100;
+  color: rgb(6, 238, 255);
+}
+
+.country-info-div span {
+  font-size: 0.9rem;
+  font-weight: 100;
+  color: #efefef;
+}
+
+.country-info-box-inside {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.country-info-div {
+  display:flex;
+  width: 190px;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .div-globalinfo-box-item:hover {
   transform: scale(1.2);
 }
