@@ -44,35 +44,33 @@ export default function WorldMap() {
 
     const calcRGBColor = (total_cases) => {
 
-        if (total_cases < 100) {
-            return "rgb( 180, 180, 180)";
+        if (maxCountryCases === 0) return;
+
+        if (total_cases < 10) {
+            return "rgb( 255, 250, 245)";
         }
 
-        const redDif = 255 - Math.trunc(maxCountryCases / 1000);
-        const totalCases = total_cases / 1000;
-
-        let aux = 0;
-
-        aux = totalCases + redDif; 
-        const addVl = (((255 - totalCases)*(totalCases*3))/100); 
-
-        //redux the color diference between country
-        aux = aux + addVl;
-
-        aux = Math.trunc(aux);
-
-        if (aux > 255) {
-            aux = 255;
+        if (total_cases < 1000) {
+            return "rgb( 255, 200, 195)";
         }
 
-        return `rgb( 138, ${195 - aux}, ${180 - aux})`;
+        const percent = Math.trunc((total_cases * 100) / maxCountryCases);
+        const diferenceReducer = (100 + (percent*2)) * ((100 - percent)/100);
+        const aux = Math.trunc((245 * percent)/100 + diferenceReducer);
+
+        return `rgb( 255, ${250 - aux}, ${245 - aux})`;
     }
 
 
   return (
       <div className="map-box">
-        <SvgLoader path={svgFile} >
-            <SvgProxy selector="path" fill="#6f6f6f"/>
+        <SvgLoader path={svgFile} id="map">
+            <SvgProxy 
+                selector="path" 
+                fill="#6f6f6f" 
+                strokeWidth="1" 
+                stroke="#222" 
+            />
             {
                 Object.values(countries).map(country => {
 

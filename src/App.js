@@ -2,10 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 
-import GlobalStats from './components/GlobalStats';
-import CountriesInfo from './components/CountriesInfo';
+import MainPage from './components/MainPage';
 import CountryInfo from './components/CountryInfo';
-import WorldMap from './components/WorldMap';
 import Footer from './components/footer';
 
 
@@ -15,14 +13,9 @@ function App() {
       <div className="App">
         <h1>CORONAVIRUS TRACKER</h1>
 
-        <Route path="/" component={GlobalStats} />
-        
-        <Route path="/" component={WorldMap} />
-        
-        <Route path="/" component={CountriesInfo} />
+          <Route exact path="/" component={MainPage} />       
 
-        <Route path="/country" component={CountryInfo} />
-        
+          <Route exact path="/country" component={CountryInfo} />
         
         <Footer />
       </div>
