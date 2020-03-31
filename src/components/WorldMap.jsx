@@ -4,7 +4,7 @@ import axios from 'axios';
 import { SvgLoader, SvgProxy } from 'react-svgmt';
 
 //const svgUrl = "https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg";
-const svgFile = "/globalMap.svg";
+const svgFile = "/coronavirus-tracker/globalMap.svg";
 
 export default function WorldMap() {
 

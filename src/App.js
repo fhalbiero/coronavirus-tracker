@@ -15,13 +15,13 @@ function App() {
       <div className="App">
         <h1>CORONAVIRUS TRACKER</h1>
 
-        <Route exact path="/" component={GlobalStats} />
+        <Route path="/" component={GlobalStats} />
         
-        <Route exact path="/" component={WorldMap} />
+        <Route path="/" component={WorldMap} />
         
-        <Route exact path="/" component={CountriesInfo} />
+        <Route path="/" component={CountriesInfo} />
 
-        <Route exact path="/country" component={CountryInfo} />
+        <Route path="/country" component={CountryInfo} />
         
         
         <Footer />
