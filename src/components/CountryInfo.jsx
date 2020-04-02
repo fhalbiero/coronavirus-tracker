@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react';
+
+import WorldMap from './WorldMap';
 
 export default function CountryInfo(props) {
 
@@ -6,8 +8,20 @@ export default function CountryInfo(props) {
             total_new_cases_today, total_new_deaths_today,
             total_active_cases, total_serious_cases } = props;
 
+    const [ returnToMap, setReturnToMap ] = useState(false);
+
+
+    if (returnToMap) {
+        
+        return <WorldMap />;
+
+    }
+
+
     return (
-        <div className="country-info-box">
+        <div 
+            className="country-info-box"
+            onClick={() => setReturnToMap(true)} >
             <h2>{title}</h2>
             <div className="country-info-box-inside">
                 <div className="country-info-div">

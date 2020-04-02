@@ -78,7 +78,7 @@ export default function CountriesInfo() {
                 {
                     Object.values(countries).map(country => {
                         if (!country.ourid) {
-                            return;
+                            return null;
                         }
                         return <Country key={country.ourid} {...country}/>
                     })
