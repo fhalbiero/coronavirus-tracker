@@ -13,7 +13,9 @@ function App() {
       <div className="App">
         <h1>CORONAVIRUS TRACKER</h1>
 
-          <Route exact path="/" component={MainPage} />       
+          <Route exact path="/" component={MainPage} />     
+
+          <Route exact path="/coronavirus-tracker" component={MainPage} />    
 
           <Route exact path="/country" component={CountryInfo} />
         

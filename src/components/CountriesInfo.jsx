@@ -13,7 +13,7 @@ export default function CountriesInfo() {
 
     useEffect(() => {
 
-        axios.get('https://thevirustracker.com/free-api?countryTotals=ALL')
+        axios.get('https://api.thevirustracker.com/free-api?countryTotals=ALL')
             .then(res => {
 
                 const tempCountries = Object.values({...res.data.countryitems[0]}).map(country => {

@@ -8,7 +8,7 @@ export default function GlobalStats() {
 
     useEffect(() => {
 
-        axios.get('https://thevirustracker.com/free-api?global=stats')
+        axios.get('https://api.thevirustracker.com/free-api?global=stats')
             .then( res => {
                 const {total_cases, total_recovered, total_deaths, 
                        total_new_cases_today, total_new_deaths_today} = res.data.results[0]

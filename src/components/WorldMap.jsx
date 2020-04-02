@@ -13,7 +13,7 @@ export default function WorldMap() {
 
     useEffect(() => {
 
-        axios.get('https://thevirustracker.com/free-api?countryTotals=ALL')
+        axios.get('https://api.thevirustracker.com/free-api?countryTotals=ALL')
             .then(res => {
                 let _maxCountryCases = 0;
 
