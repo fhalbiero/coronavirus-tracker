@@ -13,7 +13,7 @@ export const Container = styled.div`
         path {
 
             &:hover {
-                stroke: rgba( 243, 7, 203, 1);  
+                cursor: pointer; 
             }
         }
     }

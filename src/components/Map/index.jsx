@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SvgLoader, SvgProxy } from 'react-svgmt';
 
 import { useData } from '../../context/data';
-import StatusBar from '../StatusBar';
 import { Container } from './styles';
 
-//const svgUrl = "https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg";
-const svgFile = 'coronavirus-tracker/world.svg';//"/coronavirus-tracker/globalMap.svg";
 
+import SVGMap from '../../assets/world.svg';
 
 
 const Map = () => {
 
     const { data, handleSelectCountry } = useData();
+    const [ quantityRange, setQuantityRange ] = useState([]);
+
+
+    useEffect(() => {
+        if (!data) {
+            return;
+        }
+
+        const { maxCases } = data;
+        const casesRange = [];
+        casesRange.push(maxCases);
+        for (let i = 0; i <= 100; i = i + 16) {
+            const percentToSubtract = Math.trunc((i * maxCases)/100); 
+            const numberOfCases = maxCases - percentToSubtract;
+            casesRange.push(numberOfCases);
+        }
+        casesRange.push(0);
+
+        setQuantityRange(casesRange);
+    }, [data]);
 
 
     const handleClick = (country) => {
@@ -21,30 +39,30 @@ const Map = () => {
 
 
     const calculatedColor = (TotalConfirmed) => {
-        if (TotalConfirmed === 0) {
-            return `fill: rgba( 253, 203, 223, 1); fill-rule:evenodd`;
-        }
 
-        const baseGreen = 203;
-        const percentCases = (TotalConfirmed / data.maxCases).toFixed(2);
+        const colorRange = quantityRange.findIndex( amount => TotalConfirmed >= amount );
 
-        const colorLevel = Math.trunc(baseGreen * percentCases);
+        const baseGreen = 0;
+        const baseBlue = 60;
 
-        const green = baseGreen - colorLevel + 17;
+        const colorLevel = Math.trunc(colorRange * 16);
 
-        return `fill: rgba( 253, ${green}, 203, 1); fill-rule:evenodd`;
+        const green = baseGreen + colorLevel;
+        const blue  = baseBlue + colorLevel;
+
+        return `fill: rgba( 255, ${green}, ${blue}, 0.8); fill-rule:evenodd`;
     }
 
     return (
       <Container>
-        <SvgLoader path={svgFile}>
+        <SvgLoader path={SVGMap}>
             <SvgProxy 
                 selector="path" 
                 strokeWidth="1" 
                 stroke="#222" 
             />
             {
-                data && Object.values(data.countries).map(country => {
+                quantityRange.length && Object.values(data.countries).map(country => {
                     if (!country.CountryCode) return;
           
                     const rgbColor = calculatedColor(country.TotalConfirmed);
@@ -53,13 +71,11 @@ const Map = () => {
                         key={country.CountryCode}
                         id={country.CountryCode}
                         selector={`#${country.CountryCode}`} 
-                        fill="#fff"
                         style={rgbColor}
                         onClick={() => handleClick(country)}
                     />
                 })
-            }
-            
+            }         
             </SvgLoader> 
         </Container>   
   );
