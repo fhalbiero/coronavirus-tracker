@@ -39,7 +39,7 @@ The project was developed using the following technologies:
     $ git clone https://github.com/coronavirus-tracker
 
     #Enter the project folder
-    cd netflix-clone
+    cd coronavirus-tracker
 
     #Install dependencies
     npm install / yarn
